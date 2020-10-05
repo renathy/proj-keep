@@ -39,7 +39,7 @@
             app:tint="@color/colorIcSearch" />
 
         <TextView
-            android:id="@+id/textInputSearch"
+            android:id="@+id/editTextSearch"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginLeft="10dp"
