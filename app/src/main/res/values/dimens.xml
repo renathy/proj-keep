@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_default">12</dimen>
-    <dimen name="text_title">12</dimen>
-    <dimen name="margin_card">12</dimen>
+    <dimen name="margin_default">12dp</dimen>
+    <dimen name="text_title">12sp</dimen>
+    <dimen name="margin_card">12sp</dimen>
+
+
+    <dimen name="createDateTextSize">10sp</dimen>
+    <dimen name="editNote_NoteMarginBottom">40dp</dimen>
+    <dimen name="editNote_NotePaddingBottom">10dp</dimen>
+    <dimen name="backIconWidth">30dp</dimen>
+    <dimen name="backIconHeight">30dp</dimen>
+    <dimen name="backIconMarginStart">6dp</dimen>
+    <dimen name="backIconMarginTop">20dp</dimen>
+    <dimen name="backIconMarginEnd">12dp</dimen>
+    <dimen name="addNoteIconWidth">30dp</dimen>
+    <dimen name="addNoteIconHeight">30dp</dimen>
+    <dimen name="addNoteIconMarginEnd">16dp</dimen>
+    <dimen name="addNoteIconPadding">4dp</dimen>
+    <dimen name="titleHorizontalLineRadius">10dp</dimen>
+    <dimen name="titleHorizLineWidth">5dp</dimen>
+    <dimen name="titleHorizLineMarginStart">12dp</dimen>
+    <dimen name="editTextNoteMarginStart">12dp</dimen>
+    <dimen name="editTextNoteMarginTop">15dp</dimen>
+    <dimen name="editTextNoteMarginEnd">12dp</dimen>
+    <dimen name="editTextNoteMarginBottom">15dp</dimen>
+    <dimen name="editTextNoteMinHeight">100dp</dimen>
+    <dimen name="editTextNoteSize">14sp</dimen>
+    <dimen name="editTextTitleSize">18sp</dimen>
+    <dimen name="editTitleHeight">40dp</dimen>
+    <dimen name="editTitleMarginStart">20dp</dimen>
+    <dimen name="editTitleMarginTop">20dp</dimen>
+    <dimen name="editTitleMarginEnd">12dp</dimen>
+    <dimen name="editTextTitlePaddingTop">8dp</dimen>
+    <dimen name="editTextTitlePaddingBottom">8dp</dimen>
+
 </resources>

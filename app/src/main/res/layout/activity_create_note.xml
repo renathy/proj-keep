@@ -4,49 +4,116 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
 
-    <EditText
-        android:id="@+id/editTextTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:tooltipText="Note title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReturnToMain" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/editNote_NoteMarginBottom"
+        android:paddingBottom="@dimen/editNote_NotePaddingBottom">
 
-    <ImageView
-        android:id="@+id/btnReturnToMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_go_back" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
 
-    <ImageView
-        android:id="@+id/btnAddCreatedNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add" />
+            <ImageView
+                android:id="@+id/btnReturnToMain"
+                android:layout_width="@dimen/backIconWidth"
+                android:layout_height="@dimen/backIconHeight"
+                android:layout_marginStart="@dimen/backIconMarginStart"
+                android:layout_marginTop="@dimen/backIconMarginTop"
+                android:layout_marginEnd="@dimen/backIconMarginEnd"
+                app:tint="@color/colorIcons"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_go_back" />
 
-    <EditText
-        android:id="@+id/editTextNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
+            <ImageView
+                android:id="@+id/btnAddCreatedNote"
+                android:layout_width="@dimen/addNoteIconWidth"
+                android:layout_height="@dimen/addNoteIconHeight"
+                android:layout_marginEnd="@dimen/addNoteIconMarginEnd"
+                android:padding="@dimen/addNoteIconPadding"
+                app:tint="@color/colorIcons"
+                app:layout_constraintBottom_toBottomOf="@id/btnReturnToMain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnReturnToMain"
+                app:srcCompat="@drawable/ic_add" />
+
+            <TextView
+                android:id="@+id/textNoteDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorIcons"
+                android:textSize="@dimen/createDateTextSize"
+
+                app:layout_constraintEnd_toEndOf="@id/editTextTitle"
+                app:layout_constraintStart_toStartOf="@id/editTextTitle"
+                app:layout_constraintTop_toBottomOf="@id/editTextTitle"
+                />
+
+
+            <EditText
+                android:id="@+id/editTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/editTitleHeight"
+                android:layout_marginStart="@dimen/editTitleMarginStart"
+                android:layout_marginEnd="@dimen/editTitleMarginEnd"
+
+                android:layout_marginTop="@dimen/editTitleMarginTop"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:paddingTop="@dimen/editTextTitlePaddingTop"
+                android:paddingBottom="@dimen/editTextTitlePaddingBottom"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorTextHing"
+                android:textSize="@dimen/editTextTitleSize"
+                android:tooltipText="Note title"
+                app:layout_constraintTop_toBottomOf="@+id/btnReturnToMain"
+                tools:layout_editor_absoluteX="12dp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="@dimen/titleHorizLineWidth"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/titleHorizLineMarginStart"
+                android:background="@drawable/bg_title_horiz_line"
+                app:layout_constraintBottom_toBottomOf="@id/editTextTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/editTextTitle" />
+
+
+                <EditText
+                    android:id="@+id/editTextNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/editTextNoteMarginStart"
+                    android:layout_marginTop="@dimen/editTextNoteMarginTop"
+                    android:layout_marginEnd="@dimen/editTextNoteMarginEnd"
+                    android:layout_marginBottom="@dimen/editTextNoteMarginBottom"
+                    android:gravity="top"
+                    android:hint="@string/type_your_note_here"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:minHeight="@dimen/editTextNoteMinHeight"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorTextHing"
+                    android:textSize="@dimen/editTextNoteSize"
+                    android:includeFontPadding="false"
+                    android:background="@null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editTextTitle"
+
+                    />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
