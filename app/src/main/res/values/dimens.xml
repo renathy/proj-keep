@@ -36,5 +36,6 @@
     <dimen name="textNoteDateMarginBottom">12dp</dimen>
     <dimen name="textNoteDateMarginTop">14dp</dimen>
     <dimen name="textNoteDateMinHeight">20dp</dimen>
+    <dimen name="bgcolor_width">2dp</dimen>
 
 </resources>

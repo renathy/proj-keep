@@ -2,4 +2,5 @@
     <string name="app_name">Keeper</string>
     <string name="title">Notes</string>
     <string name="type_your_note_here">Type your note here</string>
+    <string name="pick_color">Pick color</string>
 </resources>

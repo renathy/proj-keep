@@ -9,5 +9,6 @@
     <color name="colorTextHing">#7b7b7b</color>
     <color name="colorNoteColor">#333333</color>
     <color name="colorNoteColor2">#fdbe38</color>
+    <color name="colorNoteColor3">#aabbcc</color>
     <color name="colorDelete">#ff4842</color>
 </resources>

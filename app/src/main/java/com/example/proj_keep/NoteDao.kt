@@ -19,4 +19,7 @@ interface NoteDao {
 
     @Delete
     fun delete(item: Note)
+
+    @Query("SELECT * FROM note ORDER BY id DESC LIMIT 1")
+    fun getLast(): Note
 }

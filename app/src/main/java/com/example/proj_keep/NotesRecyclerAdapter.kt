@@ -1,5 +1,6 @@
 package com.example.proj_keep
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,13 @@ class NotesRecyclerAdapter(private val items: List<Note>) :
         val context = holder.itemView.context
         holder.itemView.textTitle.text = item.title
         holder.itemView.textNote.text = item.note
+        holder.itemView.textCreateDate.text = item.createDate
+
+        var color = item.color
+        if (color.isNullOrEmpty()) {
+            color = "#fdbe38"
+        }
+        holder.itemView.layoutKeepNote.setBackgroundColor(Color.parseColor(color))
 
         /*  holder.itemView.shoppingQuantity.text = context.resources
              .getString(R.string.quantity_text, item.quantity, item.unit)

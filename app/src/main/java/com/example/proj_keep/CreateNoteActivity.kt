@@ -2,6 +2,8 @@ package com.example.proj_keep
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.util.Log
@@ -17,6 +19,7 @@ import java.util.*
 
 class CreateNoteActivity : AppCompatActivity() {
     private val db get() = Database.getInstance(this)
+    private var selectedNoteColor :String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,10 @@ class CreateNoteActivity : AppCompatActivity() {
         val currentDate: String = sdf.format(Date())
 
         textNoteDate.text = currentDate
+        selectedNoteColor = "#fdbe38"
+
+        //setColor()
+
         //val message = intent.getStringExtra(SEND_MESSAGE_EXTRA)
 
         btnAddCreatedNote.setOnClickListener {
@@ -34,6 +41,28 @@ class CreateNoteActivity : AppCompatActivity() {
 
          btnReturnToMain.setOnClickListener {
              openMainScreenGoBack()
+        }
+
+        viewColor2.setOnClickListener {
+            this.selectedNoteColor = "#fdbe38"
+            imgColor2.setImageResource(R.drawable.ic_done)
+            imgColor1.setImageResource(0)
+            imgColor3.setImageResource(0)
+            setColor()
+        }
+        viewColor1.setOnClickListener {
+            this.selectedNoteColor = "#333333"
+            imgColor1.setImageResource(R.drawable.ic_done)
+            imgColor2.setImageResource(0)
+            imgColor3.setImageResource(0)
+            setColor()
+        }
+        viewColor3.setOnClickListener {
+            this.selectedNoteColor = "#aabbcc"
+            imgColor3.setImageResource(R.drawable.ic_done)
+            imgColor1.setImageResource(0)
+            imgColor2.setImageResource(0)
+            setColor()
         }
     }
 
@@ -59,7 +88,6 @@ class CreateNoteActivity : AppCompatActivity() {
         var title = editTextTitle.text.toString()
         var noteText = editTextNote.text.toString()
         var createDate = textNoteDate.text.toString()
-        var color = ""
         var imagePath = ""
 
         if (title.trim().isEmpty() || noteText.trim().isEmpty()) {
@@ -67,10 +95,14 @@ class CreateNoteActivity : AppCompatActivity() {
             return;
         }
 
-        var item = Note(noteText, title, createDate, imagePath, color)
+        var item = Note(noteText, title, createDate, imagePath, selectedNoteColor)
         item.id = db.noteDao().insert(item).first()
 
         openMainScreenAddingNote()
+    }
+
+    private fun setColor() {
+        viewTitleColorHorizLine.setBackgroundColor(Color.parseColor(this.selectedNoteColor));
     }
 
     companion object {

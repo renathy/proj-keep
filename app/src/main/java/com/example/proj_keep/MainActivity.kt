@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = NotesRecyclerAdapter(notes)
         recyclerItems.adapter = adapter
+        recyclerItems.smoothScrollToPosition(0)
 
         btnAddImageNote.setOnClickListener{
             openCreateImageNote()
@@ -65,10 +66,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun reloadNotes() {
-        notes.clear()
-        notes.addAll(db.noteDao().getAll())
+        notes.add(0, db.noteDao().getLast())
         Log.d("NOTES", notes.toString())
-        // adapter.no
+        adapter.notifyItemInserted(0)
+
+        recyclerItems.smoothScrollToPosition(0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

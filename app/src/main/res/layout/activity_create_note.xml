@@ -67,7 +67,7 @@
                 tools:layout_editor_absoluteX="12dp" />
 
             <View
-                android:id="@+id/view"
+                android:id="@+id/viewTitleColorHorizLine"
                 android:layout_width="@dimen/titleHorizLineWidth"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/titleHorizLineMarginStart"
@@ -85,7 +85,7 @@
                 android:textSize="@dimen/createDateTextSize"
                 android:layout_marginTop="@dimen/textNoteDateMarginTop"
                 android:layout_marginBottom="@dimen/textNoteDateMarginBottom"
-android:includeFontPadding="false"
+                android:includeFontPadding="false"
 
                 app:layout_constraintEnd_toEndOf="@id/editTextTitle"
                 app:layout_constraintStart_toStartOf="@id/editTextTitle"
@@ -111,11 +111,97 @@ android:includeFontPadding="false"
                 android:textColorHint="@color/colorTextHing"
                 android:textSize="@dimen/editTextNoteSize"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/btnReturnToMain"
-                app:layout_constraintTop_toBottomOf="@id/textNoteDate" />
+                app:layout_constraintTop_toBottomOf="@id/textNoteDate"
+                app:layout_constraintVertical_bias="1.0" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+    <LinearLayout
+        android:id="@+id/layoutNoteColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
 
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/viewColor2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_note_color2"></View>
+
+            <ImageView
+                android:id="@+id/imgColor2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_done"
+                app:tint="@color/colorWhite" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/viewColor1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_note_color1"></View>
+
+            <ImageView
+                android:id="@+id/imgColor1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                app:tint="@color/colorWhite" />
+
+        </FrameLayout>
+
+
+        <FrameLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/viewColor3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_note_color3"></View>
+
+            <ImageView
+                android:id="@+id/imgColor3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                app:tint="@color/colorWhite" />
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@string/pick_color"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            ></TextView>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
