@@ -10,16 +10,22 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_create_note.*
 import lv.romstr.mobile.rtu_android.Database
 import lv.romstr.mobile.rtu_android.Note
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class CreateNoteActivity : AppCompatActivity() {
     private val db get() = Database.getInstance(this)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_note)
 
-        // we can get dummytext clear, but no need fornow
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate: String = sdf.format(Date())
+
+        textNoteDate.text = currentDate
         //val message = intent.getStringExtra(SEND_MESSAGE_EXTRA)
 
         btnAddCreatedNote.setOnClickListener {
@@ -50,15 +56,18 @@ class CreateNoteActivity : AppCompatActivity() {
     }
 
     private fun saveSimpleNote() {
-        // todo: check if empty
-        /*
-            Toast.makeText(this, "Note is empty", Toast.LENGTH_SHORT).show();
-            return;
-        }*/
         var title = editTextTitle.text.toString()
         var noteText = editTextNote.text.toString()
+        var createDate = textNoteDate.text.toString()
+        var color = ""
+        var imagePath = ""
 
-        var item = Note(title, noteText, "")
+        if (title.trim().isEmpty() || noteText.trim().isEmpty()) {
+            Toast.makeText(this, "Note title or text is empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        var item = Note(noteText, title, createDate, imagePath, color)
         item.id = db.noteDao().insert(item).first()
 
         openMainScreenAddingNote()

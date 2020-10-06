@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.proj_keep.NoteDao
 
-@Database(version = 1, entities = [Note::class])
+@Database(version = 2, entities = [Note::class])
 abstract class NotesDatabase : RoomDatabase() {
 
     abstract fun noteDao(): NoteDao
@@ -21,6 +21,7 @@ object Database {
         context.applicationContext, NotesDatabase::class.java, "notes-db"
     )
         .allowMainThreadQueries()
+        .fallbackToDestructiveMigration()
         .build()
         .also { instance = it }
 }

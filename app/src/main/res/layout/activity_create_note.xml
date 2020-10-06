@@ -43,18 +43,6 @@
                 app:layout_constraintTop_toTopOf="@id/btnReturnToMain"
                 app:srcCompat="@drawable/ic_add" />
 
-            <TextView
-                android:id="@+id/textNoteDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorIcons"
-                android:textSize="@dimen/createDateTextSize"
-
-                app:layout_constraintEnd_toEndOf="@id/editTextTitle"
-                app:layout_constraintStart_toStartOf="@id/editTextTitle"
-                app:layout_constraintTop_toBottomOf="@id/editTextTitle"
-                />
-
 
             <EditText
                 android:id="@+id/editTextTitle"
@@ -88,29 +76,43 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/editTextTitle" />
 
+            <TextView
+                android:id="@+id/textNoteDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/textNoteDateMinHeight"
+                android:textColor="@color/colorIcons"
+                android:textSize="@dimen/createDateTextSize"
+                android:layout_marginTop="@dimen/textNoteDateMarginTop"
+                android:layout_marginBottom="@dimen/textNoteDateMarginBottom"
+android:includeFontPadding="false"
 
-                <EditText
-                    android:id="@+id/editTextNote"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/editTextNoteMarginStart"
-                    android:layout_marginTop="@dimen/editTextNoteMarginTop"
-                    android:layout_marginEnd="@dimen/editTextNoteMarginEnd"
-                    android:layout_marginBottom="@dimen/editTextNoteMarginBottom"
-                    android:gravity="top"
-                    android:hint="@string/type_your_note_here"
-                    android:importantForAutofill="no"
-                    android:inputType="textMultiLine"
-                    android:minHeight="@dimen/editTextNoteMinHeight"
-                    android:textColor="@color/colorWhite"
-                    android:textColorHint="@color/colorTextHing"
-                    android:textSize="@dimen/editTextNoteSize"
-                    android:includeFontPadding="false"
-                    android:background="@null"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editTextTitle"
+                app:layout_constraintEnd_toEndOf="@id/editTextTitle"
+                app:layout_constraintStart_toStartOf="@id/editTextTitle"
+                app:layout_constraintTop_toBottomOf="@id/editTextTitle"
+                />
 
-                    />
+
+            <EditText
+                android:id="@+id/editTextNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="@dimen/editTextNoteMarginBottom"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="@string/type_your_note_here"
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="textMultiLine"
+                android:minHeight="@dimen/editTextNoteMinHeight"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorTextHing"
+                android:textSize="@dimen/editTextNoteSize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/btnReturnToMain"
+                app:layout_constraintTop_toBottomOf="@id/textNoteDate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

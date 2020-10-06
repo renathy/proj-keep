@@ -6,8 +6,9 @@ import androidx.room.*
 data class Note(
     val note: String,
     val title: String,
-    // todo: datetime
+    val createDate: String,
     val imagePath: String,
+    val color: String,
 
     @PrimaryKey(autoGenerate = true) var id: Long = 0
 )
