@@ -27,6 +27,8 @@ class NotesRecyclerAdapter(private val items: List<Note>) :
         val item = items[position]
         val context = holder.itemView.context
         holder.itemView.textTitle.text = item.title
+        holder.itemView.textNote.text = item.note
+
         /*  holder.itemView.shoppingQuantity.text = context.resources
              .getString(R.string.quantity_text, item.quantity, item.unit)
          */

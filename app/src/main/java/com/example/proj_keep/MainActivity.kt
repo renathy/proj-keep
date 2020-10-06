@@ -10,12 +10,15 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import lv.romstr.mobile.rtu_android.Database
 import lv.romstr.mobile.rtu_android.Note
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
 
 class MainActivity : AppCompatActivity() {
     private val db get() = Database.getInstance(this)
     private val notes = mutableListOf<Note>()
 
     private lateinit var adapter: NotesRecyclerAdapter
+    private lateinit var layoutManager: StaggeredGridLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +26,20 @@ class MainActivity : AppCompatActivity() {
 
 
         Log.d("Started", notes.toString())
-        getNotes()
+        notes.addAll(db.noteDao().getAll())
+        Log.d("NOTES", notes.toString())
+
+        layoutManager =
+            StaggeredGridLayoutManager(
+                resources.getInteger(R.integer.span_count), StaggeredGridLayoutManager.VERTICAL
+            ).apply {
+                gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+            }
+
+        recyclerItems.layoutManager = layoutManager
+
+        adapter = NotesRecyclerAdapter(notes)
+        recyclerItems.adapter = adapter
 
         btnAddImageNote.setOnClickListener{
             openCreateImageNote()
@@ -48,27 +64,23 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(intent, REPLY_REQUEST_CODE)
     }
 
-    private fun getNotes() {
-        notes.addAll(db.noteDao().getAll())
-        Log.d("NOTES", notes.toString())
-
-        adapter = NotesRecyclerAdapter(notes)
-        recyclerItems.adapter = adapter
-    }
-
     private fun reloadNotes() {
         notes.clear()
         notes.addAll(db.noteDao().getAll())
+        Log.d("NOTES", notes.toString())
+        // adapter.no
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REPLY_REQUEST_CODE) {
             data?.let {
+                Log.d("reload", "reload")
                 reloadNotes()
             }
         } else {
             // do nothing
+            Log.d("reload", "just return")
         }
     }
 
