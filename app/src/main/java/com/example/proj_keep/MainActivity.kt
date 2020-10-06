@@ -13,7 +13,7 @@ import lv.romstr.mobile.rtu_android.Note
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AdapterClickListener {
     private val db get() = Database.getInstance(this)
     private val notes = mutableListOf<Note>()
 
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerItems.layoutManager = layoutManager
 
-        adapter = NotesRecyclerAdapter(notes)
+        adapter = NotesRecyclerAdapter(this, notes)
         recyclerItems.adapter = adapter
         recyclerItems.smoothScrollToPosition(0)
 
@@ -84,6 +84,10 @@ class MainActivity : AppCompatActivity() {
             // do nothing
             Log.d("reload", "just return")
         }
+    }
+
+    override fun deleteClicked(item: Note) {
+        db.noteDao().delete(item)
     }
 
     companion object {
