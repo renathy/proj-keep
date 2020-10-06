@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_default">12</dimen>
+    <dimen name="text_title">12</dimen>
+    <dimen name="margin_card">12</dimen>
+</resources>

@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     private val db get() = Database.getInstance(this)
     private val notes = mutableListOf<Note>()
 
+    private lateinit var adapter: NotesRecyclerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,10 +51,14 @@ class MainActivity : AppCompatActivity() {
     private fun getNotes() {
         notes.addAll(db.noteDao().getAll())
         Log.d("NOTES", notes.toString())
+
+        adapter = NotesRecyclerAdapter(notes)
+        recyclerItems.adapter = adapter
     }
 
     private fun reloadNotes() {
-
+        notes.clear()
+        notes.addAll(db.noteDao().getAll())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -64,8 +70,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             // do nothing
         }
-
-
     }
 
     companion object {
