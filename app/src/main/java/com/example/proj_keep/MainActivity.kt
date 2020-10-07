@@ -65,13 +65,24 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CREATE) {
             data?.let {
                 Log.d("reload", "reload")
                 noteWasInserted()
             }
-        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CREATE) {
-            noteWasUpdated()
+        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_UPDATE && data != null) {
+            // Log.d("data", data.toString())
+
+            val reply = data?.getStringExtra(REPLY_EXTRA_ID)
+            var id = reply?.toLongOrNull();
+
+            if (id != null) {
+                //  val id:Long = data?.getLongExtra(REPLY_EXTRA_ID, 0L)
+                Log.d("Reply note (id): ", id!!.toString())
+                noteWasUpdated(id!!)
+            }
         } else {
             // do nothing
             Log.d("reload", "just return")
@@ -86,9 +97,14 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         recyclerItems.smoothScrollToPosition(0)
     }
 
-    private fun noteWasUpdated() {
-        TODO("Change position")
-        adapter.notifyItemChanged(0)
+    private fun noteWasUpdated(id: Long) {
+        Log.d("Update id", id.toString())
+
+        val item = db.noteDao().getItemById(id)
+        val position = notes.indexOfFirst { it.id == item.id }
+        notes[position] = item
+
+        adapter.notifyItemChanged(position)
     }
 
     override fun deleteClicked(item: Note) {
@@ -106,6 +122,6 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         const val REQUEST_CREATE = 1
         const val REQUEST_UPDATE = 2
         const val EXTRA_ID = "lv.romstr.mobile.extras.note_id"
-        const val RESULT_CREATE_OR_UPDATE = "lv.romstr.mobile.extras.result"
+        const val REPLY_EXTRA_ID = "lv.romstr.mobile.extras.reply_note_id"
     }
 }

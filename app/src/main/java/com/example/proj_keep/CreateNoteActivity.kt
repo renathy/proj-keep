@@ -5,11 +5,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.provider.AlarmClock
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.example.proj_keep.MainActivity.Companion.EXTRA_ID
+import com.example.proj_keep.MainActivity.Companion.REPLY_EXTRA_ID
 import com.example.proj_keep.MainActivity.Companion.REQUEST_CREATE
 import kotlinx.android.synthetic.main.activity_create_note.*
 import lv.romstr.mobile.rtu_android.Database
@@ -130,7 +132,9 @@ class CreateNoteActivity : AppCompatActivity() {
     }
 
     private fun openMainScreenUpdatingNote() {
-        val intent = Intent().putExtra(EXTRA_ID, "created")
+        Log.d("Id to send/receive", existingNote!!.id.toString())
+
+        val intent = Intent().putExtra(REPLY_EXTRA_ID, existingNote!!.id.toString())
 
         setResult(Activity.RESULT_OK, intent)
         finish()
