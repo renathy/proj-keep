@@ -105,5 +105,6 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         const val REQUEST_CREATE = 1
         const val REQUEST_UPDATE = 2
         const val EXTRA_ID = "lv.romstr.mobile.extras.note_id"
+        const val RESULT_CREATE_OR_UPDATE = "lv.romstr.mobile.extras.result"
     }
 }

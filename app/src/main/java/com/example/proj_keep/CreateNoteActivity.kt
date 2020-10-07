@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.provider.AlarmClock
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import com.example.proj_keep.MainActivity.Companion.EXTRA_ID
+import com.example.proj_keep.MainActivity.Companion.REQUEST_CREATE
 import kotlinx.android.synthetic.main.activity_create_note.*
 import lv.romstr.mobile.rtu_android.Database
 import lv.romstr.mobile.rtu_android.Note
@@ -20,9 +23,17 @@ class CreateNoteActivity : AppCompatActivity() {
     private var  existingNote: Note? = null
     private var existingId: Long = -1;
 
+    private var color3Str: String = ""
+    private var color2Str:String = ""
+    private var color1Str:String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_note)
+
+        color1Str = String.format("#%06X", (0xFFFFFF and ContextCompat.getColor(this, R.color.colorNoteColor)))
+        color2Str = String.format("#%06X", (0xFFFFFF and ContextCompat.getColor(this, R.color.colorNoteColor2)))
+        color3Str = String.format("#%06X", (0xFFFFFF and ContextCompat.getColor(this, R.color.colorNoteColor3)))
 
         if (isExistingNoteEditing()) {
             loadNoteData()
@@ -34,7 +45,7 @@ class CreateNoteActivity : AppCompatActivity() {
             val currentDate: String = sdf.format(Date())
             textNoteDate.text = currentDate
 
-            selectedNoteColor = R.color.colorNoteColor2.toString() //default color
+            selectedNoteColor = color2Str //default color
 
 
             btnAddOrUpdateNote.setImageResource(R.drawable.ic_add)
@@ -53,21 +64,23 @@ class CreateNoteActivity : AppCompatActivity() {
 
     private fun setColorListenersAndColor() {
         viewColor2.setOnClickListener {
-            this.selectedNoteColor = "#fdbe38"
+
+            this.selectedNoteColor = color2Str
             imgColor2.setImageResource(R.drawable.ic_done)
             imgColor1.setImageResource(0)
             imgColor3.setImageResource(0)
             setColor()
         }
         viewColor1.setOnClickListener {
-            this.selectedNoteColor = "#333333"
+           this.selectedNoteColor = color1Str
             imgColor1.setImageResource(R.drawable.ic_done)
             imgColor2.setImageResource(0)
             imgColor3.setImageResource(0)
             setColor()
         }
         viewColor3.setOnClickListener {
-            this.selectedNoteColor = "#aabbcc"
+
+            this.selectedNoteColor = color3Str
             imgColor3.setImageResource(R.drawable.ic_done)
             imgColor1.setImageResource(0)
             imgColor2.setImageResource(0)
@@ -75,9 +88,9 @@ class CreateNoteActivity : AppCompatActivity() {
         }
 
 
-        if (this.selectedNoteColor == "#aabbcc") {
+        if (this.selectedNoteColor == color3Str) {
             viewColor3.performClick()
-        } else if (this.selectedNoteColor == "#333333") {
+        } else if (this.selectedNoteColor == color1Str) {
             viewColor1.performClick()
         } else {
             viewColor2.performClick()
@@ -110,9 +123,15 @@ class CreateNoteActivity : AppCompatActivity() {
 
 
     private fun openMainScreenAddingNote() {
-        val intent = Intent().apply {
-            putExtra(REPLY_MESSAGE_EXTRA, "note added info")
-        }
+        val intent = Intent().putExtra(EXTRA_ID, "created")
+
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+    }
+
+    private fun openMainScreenUpdatingNote() {
+        val intent = Intent().putExtra(EXTRA_ID, "created")
+
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
@@ -138,6 +157,8 @@ class CreateNoteActivity : AppCompatActivity() {
             existingNote!!.color = selectedNoteColor
 
             db.noteDao().update(existingNote!!)
+
+            openMainScreenUpdatingNote()
         } else {
             var item = Note(noteText, title, createDate, imagePath, selectedNoteColor)
             item.id = db.noteDao().insert(item).first()
@@ -149,9 +170,5 @@ class CreateNoteActivity : AppCompatActivity() {
 
     private fun setColor() {
         viewTitleColorHorizLine.setBackgroundColor(Color.parseColor(this.selectedNoteColor));
-    }
-
-    companion object {
-        const val REPLY_MESSAGE_EXTRA = "lv.romstr.mobile.rtu_android.reply_message"
     }
 }
