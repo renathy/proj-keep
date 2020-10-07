@@ -32,7 +32,7 @@
                 app:srcCompat="@drawable/ic_go_back" />
 
             <ImageView
-                android:id="@+id/btnAddCreatedNote"
+                android:id="@+id/btnAddOrUpdateNote"
                 android:layout_width="@dimen/addNoteIconWidth"
                 android:layout_height="@dimen/addNoteIconHeight"
                 android:layout_marginEnd="@dimen/addNoteIconMarginEnd"

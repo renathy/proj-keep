@@ -61,7 +61,24 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         startActivityForResult(intent, REQUEST_CREATE)
     }
 
-    private fun reloadNotes() {
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CREATE) {
+            data?.let {
+                Log.d("reload", "reload")
+                noteWasInserted()
+            }
+        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CREATE) {
+            noteWasUpdated()
+        } else {
+            // do nothing
+            Log.d("reload", "just return")
+        }
+    }
+
+    private fun noteWasInserted() {
         notes.add(0, db.noteDao().getLast())
         Log.d("NOTES", notes.toString())
         adapter.notifyItemInserted(0)
@@ -69,17 +86,8 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         recyclerItems.smoothScrollToPosition(0)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CREATE) {
-            data?.let {
-                Log.d("reload", "reload")
-                reloadNotes()
-            }
-        } else {
-            // do nothing
-            Log.d("reload", "just return")
-        }
+    private fun noteWasUpdated() {
+        TODO("Not yet implemented")
     }
 
     override fun deleteClicked(item: Note) {

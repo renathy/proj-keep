@@ -18,33 +18,37 @@ class CreateNoteActivity : AppCompatActivity() {
     private val db get() = Database.getInstance(this)
     private var selectedNoteColor :String = ""
     private var  existingNote: Note? = null
+    private var existingId: Long = -1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_note)
 
-        if (IsExistingNoteEditing()) {
+        if (isExistingNoteEditing()) {
             loadNoteData()
+
+            btnAddOrUpdateNote.setImageResource(R.drawable.ic_done)
+
         } else {
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate: String = sdf.format(Date())
             textNoteDate.text = currentDate
 
-            selectedNoteColor = "#fdbe38" //default color
+            selectedNoteColor = R.color.colorNoteColor2.toString() //default color
+
+
+            btnAddOrUpdateNote.setImageResource(R.drawable.ic_add)
 
         }
         setColorListenersAndColor()
-        //val message = intent.getStringExtra(SEND_MESSAGE_EXTRA)
 
-        btnAddCreatedNote.setOnClickListener {
+        btnAddOrUpdateNote.setOnClickListener {
             createOrUpdateNote()
         }
 
          btnReturnToMain.setOnClickListener {
              openMainScreenGoBack()
         }
-
-
     }
 
     private fun setColorListenersAndColor() {
@@ -81,8 +85,8 @@ class CreateNoteActivity : AppCompatActivity() {
     }
 
     private fun loadNoteData() {
-        val id = intent.getLongExtra(EXTRA_ID, 0)
-        val item = db.noteDao().getItemById(id)
+
+        val item = db.noteDao().getItemById(existingId)
         existingNote = item
 
         editTextTitle.setText(item.title)
@@ -92,8 +96,9 @@ class CreateNoteActivity : AppCompatActivity() {
 
     }
 
-    private fun IsExistingNoteEditing(): Boolean {
-        return true;
+    private fun isExistingNoteEditing(): Boolean {
+        existingId = intent.getLongExtra(EXTRA_ID, 0)
+        return (existingId > 0)
     }
 
     private fun openMainScreenGoBack() {
