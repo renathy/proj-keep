@@ -87,7 +87,8 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
     }
 
     private fun noteWasUpdated() {
-        TODO("Not yet implemented")
+        TODO("Change position")
+        adapter.notifyItemChanged(0)
     }
 
     override fun deleteClicked(item: Note) {

@@ -6,6 +6,7 @@
 
 
     <dimen name="createDateTextSize">14sp</dimen>
+    <dimen name="showDateTextSize">12sp</dimen>
     <dimen name="editNote_NoteMarginBottom">40dp</dimen>
     <dimen name="editNote_NotePaddingBottom">10dp</dimen>
     <dimen name="backIconWidth">30dp</dimen>
@@ -37,5 +38,6 @@
     <dimen name="textNoteDateMarginTop">14dp</dimen>
     <dimen name="textNoteDateMinHeight">20dp</dimen>
     <dimen name="bgcolor_width">2dp</dimen>
+    <dimen name="default_card_radius">8dp</dimen>
 
 </resources>

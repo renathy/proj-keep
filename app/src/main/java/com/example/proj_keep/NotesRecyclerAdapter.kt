@@ -36,7 +36,8 @@ class NotesRecyclerAdapter(    private val listener: AdapterClickListener,
         if (color.isNullOrEmpty()) {
             color = "#fdbe38"
         }
-        holder.itemView.layoutKeepNote.setBackgroundColor(Color.parseColor(color))
+        //holder.itemView.layoutKeepNote.setBackgroundColor(Color.parseColor(color))
+        holder.itemView.layoutKeepNote.setCardBackgroundColor(Color.parseColor(color))
 
         /*  holder.itemView.shoppingQuantity.text = context.resources
              .getString(R.string.quantity_text, item.quantity, item.unit)
