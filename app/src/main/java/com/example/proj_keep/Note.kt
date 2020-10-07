@@ -4,11 +4,11 @@ import androidx.room.*
 
 @Entity(tableName = "note")
 data class Note(
-    val note: String,
-    val title: String,
-    val createDate: String,
-    val imagePath: String,
-    val color: String,
+    var note: String,
+    var title: String,
+    var createDate: String,
+    var imagePath: String,
+    var color: String,
 
     @PrimaryKey(autoGenerate = true) var id: Long = 0
 )

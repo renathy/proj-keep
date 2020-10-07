@@ -17,12 +17,11 @@ import java.util.*
 class CreateNoteActivity : AppCompatActivity() {
     private val db get() = Database.getInstance(this)
     private var selectedNoteColor :String = ""
+    private var  existingNote: Note? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_note)
-
-
 
         if (IsExistingNoteEditing()) {
             loadNoteData()
@@ -38,7 +37,7 @@ class CreateNoteActivity : AppCompatActivity() {
         //val message = intent.getStringExtra(SEND_MESSAGE_EXTRA)
 
         btnAddCreatedNote.setOnClickListener {
-            saveSimpleNote()
+            createOrUpdateNote()
         }
 
          btnReturnToMain.setOnClickListener {
@@ -84,6 +83,7 @@ class CreateNoteActivity : AppCompatActivity() {
     private fun loadNoteData() {
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val item = db.noteDao().getItemById(id)
+        existingNote = item
 
         editTextTitle.setText(item.title)
         editTextNote.setText(item.note)
@@ -93,7 +93,7 @@ class CreateNoteActivity : AppCompatActivity() {
     }
 
     private fun IsExistingNoteEditing(): Boolean {
-        return false;
+        return true;
     }
 
     private fun openMainScreenGoBack() {
@@ -112,22 +112,35 @@ class CreateNoteActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun saveSimpleNote() {
+    private fun createOrUpdateNote() {
         var title = editTextTitle.text.toString()
         var noteText = editTextNote.text.toString()
-        var createDate = textNoteDate.text.toString()
-        var imagePath = ""
 
         if (title.trim().isEmpty() || noteText.trim().isEmpty()) {
             Toast.makeText(this, "Note title or text is empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        var item = Note(noteText, title, createDate, imagePath, selectedNoteColor)
-        item.id = db.noteDao().insert(item).first()
 
-        openMainScreenAddingNote()
+        var createDate = textNoteDate.text.toString()
+        var imagePath = ""
+
+        if (existingNote != null) {
+            existingNote!!.title = title
+            existingNote!!.note = noteText
+            existingNote!!.createDate = createDate
+            existingNote!!.imagePath = imagePath
+            existingNote!!.color = selectedNoteColor
+
+            db.noteDao().update(existingNote!!)
+        } else {
+            var item = Note(noteText, title, createDate, imagePath, selectedNoteColor)
+            item.id = db.noteDao().insert(item).first()
+
+            openMainScreenAddingNote()
+        }
     }
+
 
     private fun setColor() {
         viewTitleColorHorizLine.setBackgroundColor(Color.parseColor(this.selectedNoteColor));
