@@ -4,14 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.util.Log
-import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import lv.romstr.mobile.rtu_android.Database
 import lv.romstr.mobile.rtu_android.Note
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
 
 class MainActivity : AppCompatActivity(), AdapterClickListener {
     private val db get() = Database.getInstance(this)
@@ -24,8 +21,18 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setUpAdapterAndLayoutManager()
 
-        Log.d("Started", notes.toString())
+        btnAddImageNote.setOnClickListener{
+            openCreateImageNote()
+        }
+
+        btnAddSimpleNote.setOnClickListener{
+            openCreateSimpleNote()
+        }
+    }
+
+    private fun setUpAdapterAndLayoutManager() {
         notes.addAll(db.noteDao().getAll())
         Log.d("NOTES", notes.toString())
 
@@ -41,15 +48,6 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         adapter = NotesRecyclerAdapter(this, notes)
         recyclerItems.adapter = adapter
         recyclerItems.smoothScrollToPosition(0)
-
-        btnAddImageNote.setOnClickListener{
-            openCreateImageNote()
-        }
-
-        btnAddSimpleNote.setOnClickListener{
-            openCreateSimpleNote()
-        }
-
     }
 
     private fun openCreateImageNote() {
@@ -59,10 +57,8 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
     }
 
     private fun openCreateSimpleNote() {
-        val intent = Intent(this, CreateNoteActivity::class.java).apply {
-            putExtra(SEND_MESSAGE_EXTRA, "dummymessage")
-        }
-        startActivityForResult(intent, REPLY_REQUEST_CODE)
+        val intent = Intent(this, CreateNoteActivity::class.java)
+        startActivityForResult(intent, REQUEST_CREATE)
     }
 
     private fun reloadNotes() {
@@ -75,7 +71,7 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REPLY_REQUEST_CODE) {
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CREATE) {
             data?.let {
                 Log.d("reload", "reload")
                 reloadNotes()
@@ -90,8 +86,16 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         db.noteDao().delete(item)
     }
 
+    override fun itemClicked(item: Note) {
+        val intent = Intent(this, CreateNoteActivity::class.java)
+            .putExtra(EXTRA_ID, item.id)
+
+        startActivityForResult(intent, REQUEST_UPDATE)
+    }
+
     companion object {
-        const val REPLY_REQUEST_CODE = 1234
-        const val SEND_MESSAGE_EXTRA = "lv.romstr.mobile.rtu_android.send_message"
+        const val REQUEST_CREATE = 1
+        const val REQUEST_UPDATE = 2
+        const val EXTRA_ID = "lv.romstr.mobile.extras.note_id"
     }
 }

@@ -49,6 +49,9 @@ class NotesRecyclerAdapter(    private val listener: AdapterClickListener,
             // Toast.makeText(context, item.title, Toast.LENGTH_SHORT).show()
         }
 
+        holder.itemView.setOnClickListener {
+            listener.itemClicked(items[position])
+        }
 
         /*holder.itemView.setOnClickListener {
             Toast.makeText(context, item.title, Toast.LENGTH_SHORT).show()
